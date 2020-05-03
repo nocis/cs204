@@ -102,6 +102,16 @@ def run():
     net['h2'].cmd('ip route add 10.0.0.0/24 via 10.0.2.1 dev h2-eth0')
     net['h2'].cmd('ip route add 10.0.1.0/24 via 10.0.3.1 dev h2-eth1')
 
+    
+    net['h1'].cmd('tc qdisc add dev h1-eth0 root tbf rate 50mbit')
+    net['h1'].cmd('tc qdisc add dev h1-eth1 root tbf rate 50mbit')
+    net['h2'].cmd('tc qdisc add dev h2-eth0 root tbf rate 50mbit')
+    net['h2'].cmd('tc qdisc add dev h2-eth1 root tbf rate 50mbit')
+    net['r0'].cmd('tc qdisc add dev r0-eth1 root tbf rate 50mbit')
+    net['r0'].cmd('tc qdisc add dev r0-eth2 root tbf rate 50mbit')
+    net['r1'].cmd('tc qdisc add dev r1-eth1 root tbf rate 50mbit')
+    net['r1'].cmd('tc qdisc add dev r1-eth2 root tbf rate 50mbit')
+
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
