@@ -91,6 +91,7 @@ def run():
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
+    info( net[ 'r1' ].cmd( 'route' ) )
     CLI( net )
     net.stop()
 
