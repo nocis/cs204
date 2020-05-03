@@ -112,6 +112,33 @@ def run():
     net['r1'].cmd('tc qdisc add dev r1-eth1 root tbf rate 50mbit')
     net['r1'].cmd('tc qdisc add dev r1-eth2 root tbf rate 50mbit')
 
+
+    net['h1'].cmd('ip rule add from 10.0.0.100 table 1')
+    net['h1'].cmd('ip rule add from 10.0.1.100 table 2')
+
+    # Configure the two different routing tables
+    net['h1'].cmd('ip route add 10.0.0.0/24 dev h1-eth0 scope link table 1')
+    net['h1'].cmd('ip route add default via 10.0.0.1 dev h1-eth0 table 1')
+
+    net['h1'].cmd('ip route add 10.0.1.0/24 dev h1-eth1 scope link table 2')
+    net['h1'].cmd('ip route add default via 10.0.1.1 dev h1-eth1 table 2')
+
+    # default route for the selection process of normal internet-traffic
+    net['h1'].cmd('ip route add default scope global nexthop via 10.0.0.1 dev h1-eth0')
+
+    net['h2'].cmd('ip rule add from 10.0.2.100 table 1')
+    net['h2'].cmd('ip rule add from 10.0.3.100 table 2')
+
+    # Configure the two different routing tables
+    net['h2'].cmd('ip route add 10.0.2.0/24 dev h2-eth0 scope link table 1')
+    net['h2'].cmd('ip route add default via 10.0.2.1 dev h2-eth0 table 1')
+
+    net['h2'].cmd('ip route add 10.0.3.0/24 dev h2-eth1 scope link table 2')
+    net['h2'].cmd('ip route add default via 10.0.3.1 dev h2-eth1 table 2')
+
+    # default route for the selection process of normal internet-traffic
+    net['h2'].cmd('ip route add default scope global nexthop via 10.0.2.1 dev h2-eth0')
+
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
