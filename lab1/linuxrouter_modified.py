@@ -51,15 +51,24 @@ class NetworkTopo( Topo ):
         defaultIP = '10.0.0.1/24'  # IP address for r0-eth1
         router = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP )
 
+        defaultIP12 = '10.0.2.1/24'  # IP address for r0-eth2
+        router12 = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP12 )
+
+        defaultIP2 = '10.0.1.1/24'  # IP address for r1-eth1
+        router2 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP2 )
+
+        defaultIP22 = '10.0.3.1/24'  # IP address for r1-eth2
+        router22 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP22 )
+
         s1, s2, s3, s4= [ self.addSwitch( s ) for s in ( 's1', 's2', 's3', 's4' ) ]
 
         self.addLink( s1, router, intfName2='r0-eth1',
                       params2={ 'ip' : defaultIP } )  # for clarity
-        self.addLink( s3, router, intfName2='r1-eth1',
+        self.addLink( s3, router2, intfName2='r1-eth1',
                       params2={ 'ip' : '10.0.1.1/24' } )
-        self.addLink( s2, router, intfName2='r0-eth2',
+        self.addLink( s2, router12, intfName2='r0-eth2',
                       params2={ 'ip' : '10.0.2.1/24' } )
-        self.addLink( s4, router, intfName2='r1-eth2',
+        self.addLink( s4, router22, intfName2='r1-eth2',
                       params2={ 'ip' : '10.0.3.1/24' } )
 
         h1 = self.addHost( 'h1', ip='10.0.0.100/24',
@@ -82,6 +91,7 @@ def run():
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
+    info( net[ 'r1' ].cmd( 'route' ) )
     CLI( net )
     net.stop()
 
