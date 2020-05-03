@@ -51,14 +51,8 @@ class NetworkTopo( Topo ):
         defaultIP = '10.0.0.1/24'  # IP address for r0-eth1
         router = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP )
 
-        defaultIP12 = '10.0.2.1/24'  # IP address for r0-eth2
-        router12 = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP12 )
-
         defaultIP2 = '10.0.1.1/24'  # IP address for r1-eth1
         router2 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP2 )
-
-        defaultIP22 = '10.0.3.1/24'  # IP address for r1-eth2
-        router22 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP22 )
 
         s1, s2, s3, s4= [ self.addSwitch( s ) for s in ( 's1', 's2', 's3', 's4' ) ]
 
@@ -66,9 +60,9 @@ class NetworkTopo( Topo ):
                       params2={ 'ip' : defaultIP } )  # for clarity
         self.addLink( s3, router2, intfName2='r1-eth1',
                       params2={ 'ip' : '10.0.1.1/24' } )
-        self.addLink( s2, router12, intfName2='r0-eth2',
+        self.addLink( s2, router, intfName2='r0-eth2',
                       params2={ 'ip' : '10.0.2.1/24' } )
-        self.addLink( s4, router22, intfName2='r1-eth2',
+        self.addLink( s4, router2, intfName2='r1-eth2',
                       params2={ 'ip' : '10.0.3.1/24' } )
 
         h1 = self.addHost( 'h1', ip='10.0.0.100/24',
@@ -86,6 +80,11 @@ def run():
     "Test linux router"
     topo = NetworkTopo()
     net = Mininet( topo=topo )  # controller is used by s1-s3
+    net['r0'].setIP( ip='10.0.2.1/24',
+                           intf='r0-eth2' )
+    net['r1'].setIP( ip='10.0.3.1/24',
+                           intf='r1-eth2' )
+                           
     net['h1'].setIP( ip='10.0.1.100/24',
                            intf='h1-eth1' )
     net['h1'].setHostRoute(ip='10.0.1.100/24',
