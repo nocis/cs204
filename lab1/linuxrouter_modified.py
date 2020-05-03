@@ -99,8 +99,8 @@ def run():
 
     net['h2'].cmd('ip rule add from 10.0.2.100 table 1')
     net['h2'].cmd('ip rule add from 10.0.3.100 table 2')
-    net['h2'].cmd(ip route add 10.0.0.0/24 via 10.0.2.1 dev h2-eth0)
-    net['h2'].cmd(ip route add 10.0.1.0/24 via 10.0.3.1 dev h2-eth1)
+    net['h2'].cmd('ip route add 10.0.0.0/24 via 10.0.2.1 dev h2-eth0')
+    net['h2'].cmd('ip route add 10.0.1.0/24 via 10.0.3.1 dev h2-eth1')
 
     net.start()
     info( '*** Routing Table on Router:\n' )
