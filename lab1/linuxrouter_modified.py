@@ -92,15 +92,19 @@ def run():
 
     net['h1'].cmd('ip rule add from 10.0.0.100 table 1')
     net['h1'].setHostRoute("10.0.0.100/24", "h1-eth0")
+    net['r0'].setHostRoute("10.0.0.100/24", "h1-eth0")
 
     net['h1'].cmd('ip rule add from 10.0.1.100 table 2')
     net['h1'].setHostRoute("10.0.1.100/24", "h1-eth1")
+    net['r1'].setHostRoute("10.0.1.100/24", "h1-eth1")
 
     net['h2'].cmd('ip rule add from 10.0.2.100 table 1')
     net['h2'].setHostRoute("10.0.2.100/24", "h2-eth0")
+    net['r0'].setHostRoute("10.0.2.100/24", "h2-eth0")
 
     net['h2'].cmd('ip rule add from 10.0.3.100 table 2')
     net['h2'].setHostRoute("10.0.3.100/24", "h2-eth1")
+    net['r1'].setHostRoute("10.0.3.100/24", "h2-eth1")
 
 
     net.start()
