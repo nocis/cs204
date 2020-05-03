@@ -84,14 +84,10 @@ def run():
                            intf='r0-eth2' )
     net['r1'].setIP( ip='10.0.3.1/24',
                            intf='r1-eth2' )
-                           
+
     net['h1'].setIP( ip='10.0.1.100/24',
                            intf='h1-eth1' )
-    net['h1'].setHostRoute(ip='10.0.1.100/24',
-                           intf='h1-eth1' )
     net['h2'].setIP( ip='10.0.3.100/24',
-                           intf='h2-eth1' )
-    net['h1'].setHostRoute(ip='10.0.3.100/24',
                            intf='h2-eth1' )
     net.start()
     info( '*** Routing Table on Router:\n' )
