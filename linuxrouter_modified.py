@@ -73,11 +73,11 @@ class NetworkTopo( Topo ):
 
         h1 = self.addHost( 'h1', ip='10.0.0.100/24',
                            defaultRoute='via 10.0.0.1' )
-        h12 = self.addHost( 'h12', ip='10.0.1.100/24',
+        h12 = self.addHost( 'h1', ip='10.0.1.100/24',
                            defaultRoute='via 10.0.1.1' )
         h2 = self.addHost( 'h2', ip='10.0.2.100/24',
                            defaultRoute='via 10.0.2.1' )
-        h22 = self.addHost( 'h22', ip='10.0.3.100/24',
+        h22 = self.addHost( 'h2', ip='10.0.3.100/24',
                            defaultRoute='via 10.0.3.1' )
 
         for h, s in [ (h1, s1), (h2, s2), (h12, s3), (h22, s4) ]:
