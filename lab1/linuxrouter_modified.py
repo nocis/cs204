@@ -87,9 +87,9 @@ def run():
     topo = NetworkTopo()
     net = Mininet( topo=topo )  # controller is used by s1-s3
     net['h1'].setIP( ip='10.0.1.100/24',
-                           intf='h1-eth1' )
+                           intf='h1-eth1',defaultRoute='via 10.0.1.1' )
     net['h2'].setIP( ip='10.0.3.100/24',
-                           intf='h2-eth1' )
+                           intf='h2-eth1',defaultRoute='via 10.0.3.1' )
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
