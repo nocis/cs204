@@ -78,7 +78,7 @@ class NetworkTopo( Topo ):
                            defaultRoute='via 10.0.2.1' )
         
 
-        for h, s in [ (h1, s1), (h2, s2), (h12, s3), (h22, s4) ]:
+        for h, s in [ (h1, s1), (h2, s2), (h1, s3), (h2, s4) ]:
             self.addLink( h, s )
 
 
