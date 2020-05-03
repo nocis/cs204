@@ -52,13 +52,13 @@ class NetworkTopo( Topo ):
         router = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP )
 
         defaultIP12 = '10.0.2.1/24'  # IP address for r0-eth2
-        router12 = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP )
+        router12 = self.addNode( 'r0', cls=LinuxRouter, ip=defaultIP12 )
 
         defaultIP2 = '10.0.1.1/24'  # IP address for r1-eth1
-        router2 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP )
+        router2 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP2 )
 
         defaultIP22 = '10.0.3.1/24'  # IP address for r1-eth2
-        router22 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP )
+        router22 = self.addNode( 'r1', cls=LinuxRouter, ip=defaultIP22 )
 
         s1, s2, s3, s4= [ self.addSwitch( s ) for s in ( 's1', 's2', 's3', 's4' ) ]
 
