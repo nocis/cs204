@@ -91,23 +91,16 @@ def run():
                            intf='h2-eth1' )
 
     net['h1'].cmd('ip rule add from 10.0.0.100 table 1')
-    net['h1'].setHostRoute("10.0.0.100/24", "h1-eth0")
-    net['r0'].setHostRoute("10.0.0.100/24", "r0-eth1")
-    net['r1'].setHostRoute("10.0.0.100/24", "r1-eth1")
-
     net['h1'].cmd('ip rule add from 10.0.1.100 table 2')
-    net['h1'].setHostRoute("10.0.1.100/24", "h1-eth1")
-    net['r1'].setHostRoute("10.0.1.100/24", "r1-eth1")
+    net['h1'].cmd(ip route add 10.0.2.0/24 via 10.0.0.1 dev h1-eth0)
+    net['h1'].cmd(ip route add 10.0.3.0/24 via 10.0.1.1 dev h1-eth1)
+
+
 
     net['h2'].cmd('ip rule add from 10.0.2.100 table 1')
-    net['h2'].setHostRoute("10.0.2.100/24", "h2-eth0")
-    net['r0'].setHostRoute("10.0.2.100/24", "r0-eth2")
-    net['r1'].setHostRoute("10.0.2.100/24", "r1-eth2")
-
     net['h2'].cmd('ip rule add from 10.0.3.100 table 2')
-    net['h2'].setHostRoute("10.0.3.100/24", "h2-eth1")
-    net['r1'].setHostRoute("10.0.3.100/24", "r1-eth2")
-
+    net['h2'].cmd(ip route add 10.0.0.0/24 via 10.0.2.1 dev h2-eth0)
+    net['h2'].cmd(ip route add 10.0.1.0/24 via 10.0.3.1 dev h2-eth1)
 
     net.start()
     info( '*** Routing Table on Router:\n' )
