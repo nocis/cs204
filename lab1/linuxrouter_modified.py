@@ -73,12 +73,10 @@ class NetworkTopo( Topo ):
 
         h1 = self.addHost( 'h1', ip='10.0.0.100/24',
                            defaultRoute='via 10.0.0.1' )
-        net['h1'].setIP( ip='10.0.1.100/24',
-                           intf='h1-eth1' )
+        
         h2 = self.addHost( 'h2', ip='10.0.2.100/24',
                            defaultRoute='via 10.0.2.1' )
-        net['h2'].setIP( ip='10.0.3.100/24',
-                           intf='h2-eth1' )
+        
 
         for h, s in [ (h1, s1), (h2, s2), (h12, s3), (h22, s4) ]:
             self.addLink( h, s )
@@ -88,6 +86,10 @@ def run():
     "Test linux router"
     topo = NetworkTopo()
     net = Mininet( topo=topo )  # controller is used by s1-s3
+    net['h1'].setIP( ip='10.0.1.100/24',
+                           intf='h1-eth1' )
+    net['h2'].setIP( ip='10.0.3.100/24',
+                           intf='h2-eth1' )
     net.start()
     info( '*** Routing Table on Router:\n' )
     info( net[ 'r0' ].cmd( 'route' ) )
