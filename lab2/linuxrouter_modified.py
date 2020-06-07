@@ -17,8 +17,10 @@ class MyTopo( Topo ):
         s2 = self.addSwitch( 's2' )
         s3 = self.addSwitch( 's3' )
 
-        for h, s in [ (h1, s1), (h2, s1), (h3, s1), (h4, s3), (h5, s3), (s1, s2), (s2, s3) ]:
-            self.addLink( h, s )
+        # Add links
+        self.addLink( h1, s1 )
+        self.addLink( s1, s2 )
+        self.addLink( s2, s3 )
 
 
 topos = { 'mytopo': ( lambda: MyTopo() ) }
