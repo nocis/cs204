@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from mininet.topo import Topo
 
 class MyTopo( Topo ):
@@ -23,4 +21,4 @@ class MyTopo( Topo ):
             self.addLink( h, s )
 
 
-opos = { 'mytopo': ( lambda: MyTopo() ) }
+topos = { 'mytopo': ( lambda: MyTopo() ) }
