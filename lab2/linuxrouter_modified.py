@@ -1,29 +1,14 @@
 #!/usr/bin/python
 
 from mininet.topo import Topo
-from mininet.net import Mininet
-from mininet.node import Node
-from mininet.log import setLogLevel, info
-from mininet.cli import CLI
 
+class MyTopo( Topo ):
+    "Simple topology example."
 
-class LinuxRouter( Node ):
-    "A Node with IP forwarding enabled."
+    def build( self ):
+        "Create custom topo."
 
-    def config( self, **params ):
-        super( LinuxRouter, self).config( **params )
-        # Enable forwarding on the router
-        self.cmd( 'sysctl net.ipv4.ip_forward=1' )
-
-    def terminate( self ):
-        self.cmd( 'sysctl net.ipv4.ip_forward=0' )
-        super( LinuxRouter, self ).terminate()
-
-
-class NetworkTopo( Topo ):
-    "A LinuxRouter connecting 4 IP subnets"
-
-    def build( self, **_opts ):
+        # Add hosts and switches
         h1 = self.addHost( 'h1' )
         h2 = self.addHost( 'h2' )
         h3 = self.addHost( 'h3' )
@@ -38,17 +23,4 @@ class NetworkTopo( Topo ):
             self.addLink( h, s )
 
 
-def run():
-    "Test linux router"
-    topo = NetworkTopo()
-    net = Mininet( topo=topo )  # controller is used by s1-s3
-    net.start()
-    info( '*** Routing Table on Router:\n' )
-    info( net[ 'r0' ].cmd( 'route' ) )
-    info( net[ 'r1' ].cmd( 'route' ) )
-    CLI( net )
-    net.stop()
-
-if __name__ == '__main__':
-    setLogLevel( 'info' )
-    run()
+opos = { 'mytopo': ( lambda: MyTopo() ) }
